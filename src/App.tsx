@@ -1,9 +1,12 @@
-import React from "react";
-// import logo from './logo.svg';
+import { Dashboard } from "./pages";
 import "./App.css";
 
 function App() {
-  return <div className="App">happy hacking</div>;
+  return (
+    <div className="App">
+      <Dashboard />
+    </div>
+  );
 }
 
 export default App;
