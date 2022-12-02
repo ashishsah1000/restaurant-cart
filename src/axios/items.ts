@@ -42,3 +42,18 @@ export function getItemDetails(id: any) {
       // always executed
     });
 }
+
+// post a specific item
+export function addItem(data: FoodItem) {
+  const req = url + "MenuItem";
+  return axios
+    .post(req, data)
+    .then(function (response) {
+      console.log(response);
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return { status: 400, text: "failed to add the item " };
+    });
+}

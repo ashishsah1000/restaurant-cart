@@ -67,7 +67,10 @@ export default function Menu() {
         </>
       ) : (
         <>
-          <div className="" style={{ maxWidth: "800px", margin: "0px auto" }}>
+          <div
+            className="d-flex flex-wrap"
+            style={{ maxWidth: "70vw", margin: "0px auto" }}
+          >
             {demo.map((x: FoodItem) => {
               return (
                 <MenuTable
