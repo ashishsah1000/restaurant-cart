@@ -1,24 +1,31 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import { addItem } from "../../../axios/items";
 import { FoodItem } from "../../../interface";
 
 export default function Create() {
   // handle the submit button
-
-  const handleSubmit = (e: any) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     var form: any = document.querySelector(".addItem");
     const data: any = Object.fromEntries(new FormData(form).entries());
     const item: FoodItem = {
+      id: 0,
       name: data.name,
       description: data.description,
       specialTag: data.specialTags,
       category: data.category,
       price: data.price,
-      image: "https://picsum.photos/900/900",
+      image:
+        "https://carameltintedlife.com/wp-content/uploads/2021/07/Chicken-Dum-Biryani-1-3-500x375.jpg",
     };
-    console.log(item);
-    addItem(item);
+    var res = await addItem(item);
+    if (res.status == 201) {
+      console.log("successfully added redirect should happen");
+      navigate("/dashboard");
+    } else {
+      console.log("some error", res);
+    }
   };
   return (
     <div

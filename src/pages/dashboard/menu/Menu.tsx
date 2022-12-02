@@ -47,11 +47,12 @@ export default function Menu() {
         "https://dotnetmasteryimages.blob.core.windows.net/redmango/veggiePlatter.jpg",
     },
   ];
-  const [data, setdata] = useState<menu[]>([]);
+  const [data, setdata] = useState<FoodItem[]>([]);
   const requestAllItems = async () => {
-    var res = await getAllItems();
+    var res: any = await getAllItems();
     if (res.status == 200) {
-      console.log(res);
+      console.log(res.data.result);
+      setdata([...res.data.result]);
     } else {
       console.log("some error happened", res);
     }
@@ -61,9 +62,11 @@ export default function Menu() {
   }, []);
   return (
     <div>
-      {data.length > 0 ? (
+      {data.length <= 0 ? (
         <>
-          <Loading />{" "}
+          <div className="d-flex justify-content-center mt-3">
+            <Loading />
+          </div>
         </>
       ) : (
         <>
@@ -71,7 +74,7 @@ export default function Menu() {
             className="d-flex flex-wrap"
             style={{ maxWidth: "70vw", margin: "0px auto" }}
           >
-            {demo.map((x: FoodItem) => {
+            {data.map((x: FoodItem) => {
               return (
                 <MenuTable
                   key={x.id}

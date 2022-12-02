@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { getItemDetails } from "../../../axios/items";
 import { Loading, Quanity } from "../../../components";
 import { FoodItem } from "../../../interface";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectedItem } from "../../../features/item/itemSlice";
 export default function Item() {
+  const dispatch = useDispatch();
   // get id from url
   const { id } = useParams();
   // data regarding the food item
@@ -25,7 +29,9 @@ export default function Item() {
     <div className="containter">
       {data.name == undefined ? (
         <>
-          <Loading />
+          <div className="d-flex justify-content-center mt-3">
+            <Loading />
+          </div>
         </>
       ) : (
         <>
@@ -45,7 +51,21 @@ export default function Item() {
                 background: `url(${data.image})`,
                 backgroundSize: "cover",
               }}
-            ></div>
+            >
+              <div className="item-action d-flex justify-content-end">
+                <Link to={`/dashboard/edit/${id}`}>
+                  <button
+                    role={"button"}
+                    className="btn m-2 btn-outlined"
+                    onClick={() => {
+                      dispatch(selectedItem(data));
+                    }}
+                  >
+                    Update
+                  </button>
+                </Link>
+              </div>
+            </div>
             <div className="p-3">
               <div className="mt-3">
                 <h3
